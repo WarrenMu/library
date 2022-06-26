@@ -1,7 +1,7 @@
 from django.db import models
-from django.db import models
-from django.contrib.auth.models import User
-import datetime
+from datetime import datetime,timedelta
+#from django.contrib.auth.models import User
+#import datetime
 #from django.db.models.signals import post_save
 
 # Create your models here.
@@ -15,7 +15,7 @@ class Book(models.Model):
     summary = models.TextField(max_length=1000, help_text="Enter a brief description of the book")
     total_copies = models.IntegerField()
     available_copies = models.IntegerField()
-    pic = models.ImageField(blank=True, null=True, upload_to='book_image')   
+    #pic = models.ImageField(blank=True, null=True, upload_to='book_image')   
 
 
 # relation containing info about student
@@ -27,7 +27,7 @@ class Student(models.Model):
     contact_no = models.CharField(max_length=10)
     total_books_due = models.IntegerField(default=0)
     email = models.EmailField(unique=True)
-    pic = models.ImageField(blank=True, upload_to='profile_image')
+    #pic = models.ImageField(blank=True, upload_to='profile_image')
 
 # relation containing info about Borrowed books
 # it has  foriegn key book and student for referencing book and student
@@ -40,4 +40,5 @@ class Borrower(models.Model):
 
     def __str__(self):
         return self.student.name + " borrowed " + self.book.title
+
 
