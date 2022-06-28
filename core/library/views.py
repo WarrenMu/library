@@ -101,3 +101,24 @@ def myissues(request):
     
     messages.error(request,'You are Not a Student !')
     return redirect('/')
+
+    @login_required(login_url='/admin/')
+@user_passes_test(lambda u:  u.is_superuser ,login_url='/admin/')
+def requestedissues(request):
+    if request.GET.get('studentID') is not None and request.GET.get('studentID') != '':
+        try:
+            user= User.objects.get(username=request.GET.get('studentID'))
+            student=Student.objects.filter(student_id=user)
+            if student:
+                student=student[0]
+                issues=Issue.objects.filter(student=student,issued=False)
+                return render(request,'library/allissues.html',{'issues':issues})
+            messages.error(request,'No Student found')
+            return redirect('/all-issues/') 
+        except User.DoesNotExist:
+            messages.error(request,'No Student found')
+            return redirect('/all-issues/')
+
+    else:
+        issues=Issue.objects.filter(issued=False)
+        return render(request,'library/allissues.html',{'issues':issues})
