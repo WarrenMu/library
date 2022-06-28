@@ -12,3 +12,9 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from core import settings
 
+# Book
+def allbooks(request):
+    requestedbooks,issuedbooks=getmybooks(request.user)
+    allbooks=Book.objects.all()
+    
+    return render(request,'library/home.html',{'books':allbooks,'issuedbooks':issuedbooks,'requestedbooks':requestedbooks})
