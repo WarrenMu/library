@@ -41,3 +41,22 @@ def search(request):
     else:
         books_results=Book.objects.filter(Q(name__icontains=search_query) | Q(category__icontains=search_query))
         return render(request,'library/home.html',{'books_results':books_results,'issuedbooks':issuedbooks,'requestedbooks':requestedbooks})
+
+@login_required(login_url='/student/login/')
+@user_passes_test(lambda u: u.is_superuser,login_url='/student/login/')
+def addbook(request):
+    authors=Author.objects.all()
+    if request.method=="POST":
+        name=request.POST['name']
+        category=request.POST['category']
+        author=Author.objects.get(id=request.POST['author'])
+        image=request.FILES['book-image']
+        if author is not None or author != '':
+            newbook,created=Book.objects.get_or_create(name=name,image=image,category=category,author=author)
+            messages.success(request,'Book - {} Added succesfully '.format(newbook.name))
+            return render(request,'library/addbook.html',{'authors':authors,})
+        else:
+            messages.error(request,'Author not found !')
+            return render(request,'library/addbook.html',{'authors':authors,})
+    else:
+        return render(request,'library/addbook.html',{'authors':authors})
