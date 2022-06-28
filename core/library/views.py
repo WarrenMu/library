@@ -60,3 +60,11 @@ def addbook(request):
             return render(request,'library/addbook.html',{'authors':authors,})
     else:
         return render(request,'library/addbook.html',{'authors':authors})
+
+@login_required(login_url='/student/login/')
+@user_passes_test(lambda u: u.is_superuser,login_url='/student/login/')
+def deletebook(request,bookID):
+    book=Book.objects.get(id=bookID)
+    messages.success(request,'Book - {} Deleted succesfully '.format(book.name))
+    book.delete()
+    return redirect('/')
