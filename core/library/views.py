@@ -122,3 +122,23 @@ def requestedissues(request):
     else:
         issues=Issue.objects.filter(issued=False)
         return render(request,'library/allissues.html',{'issues':issues})
+
+@login_required(login_url='/admin/')
+@user_passes_test(lambda u:  u.is_superuser ,login_url='/student/login/')
+def issue_book(request,issueID):
+    issue=Issue.objects.get(id=issueID)
+    issue.return_date=timezone.now() + datetime.timedelta(days=15)
+    issue.issued_at=timezone.now()
+    issue.issued=True
+    issue.save()
+    return redirect('/all-issues/')
+
+
+@login_required(login_url='/student/login/')
+@user_passes_test(lambda u:  u.is_superuser ,login_url='/admin/')
+def return_book(request,issueID):
+    issue=Issue.objects.get(id=issueID)
+    calcFine(issue)
+    issue.returned=True
+    issue.save()
+    return redirect('/all-issues/')
