@@ -29,3 +29,15 @@ def sort(request):
     else:
         books_results=Book.objects.filter(name__startswith=sort_by)
         return render(request,'library/home.html',{'books_results':books_results,'issuedbooks':issuedbooks,'requestedbooks':requestedbooks,'selected':'book'})
+
+def search(request):
+    search_query=request.GET.get('search-query')
+    search_by_author=request.GET.get('author')
+    requestedbooks,issuedbooks=getmybooks(request.user)
+
+    if search_by_author is not None:
+        author_results=Author.objects.filter(name__icontains=search_query)
+        return render(request,'library/home.html',{'author_results':author_results,'issuedbooks':issuedbooks,'requestedbooks':requestedbooks})
+    else:
+        books_results=Book.objects.filter(Q(name__icontains=search_query) | Q(category__icontains=search_query))
+        return render(request,'library/home.html',{'books_results':books_results,'issuedbooks':issuedbooks,'requestedbooks':requestedbooks})
