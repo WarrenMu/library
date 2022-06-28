@@ -18,3 +18,14 @@ def allbooks(request):
     allbooks=Book.objects.all()
     
     return render(request,'library/home.html',{'books':allbooks,'issuedbooks':issuedbooks,'requestedbooks':requestedbooks})
+
+def sort(request):
+    sort_type=request.GET.get('sort_type')
+    sort_by=request.GET.get('sort')
+    requestedbooks,issuedbooks=getmybooks(request.user)
+    if 'author' in sort_type:
+        author_results=Author.objects.filter(name__startswith=sort_by)
+        return render(request,'library/home.html',{'author_results':author_results,'issuedbooks':issuedbooks,'requestedbooks':requestedbooks,'selected':'author'})
+    else:
+        books_results=Book.objects.filter(name__startswith=sort_by)
+        return render(request,'library/home.html',{'books_results':books_results,'issuedbooks':issuedbooks,'requestedbooks':requestedbooks,'selected':'book'})
