@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% block heading %} Add Book {% endblock heading %}
+<!--  -->
+{% block content %}
+
+<form
+  class="w-2xl sm:w-1/2 max-w-lg flex flex-col mx-auto"
+  method="POST"
+  action="/addbook/"
+  enctype="multipart/form-data"
+  >
+  {% csrf_token %}
+  <div class="w-full max-w-lg flex flex-col mt-4 justify-center">
+    <label class="text-xl mb-2" for="name">Name</label>
+    <input
+      class="px-2 py-1 bg-transparent border-white border-2 rounded text-gray-800"
+      type="text"
+      placeholder="name"
+      name="name"
+    />
+  </div>
+</div>
+<div class="w-full max-w-lg flex flex-col mt-4 justify-center">
+  <label class="text-xl mb-2" for="category">Category</label>
+  <input
+    class="px-2 py-1 bg-transparent border-white border-2 rounded text-gray-800"
+    type="text"
+    placeholder="category"
+    name="category"
+  />
+</div>
+<div class="w-full max-w-lg flex flex-col mt-4 justify-center">
+  <label class="text-xl mb-2" for="book-image">Image</label>
+  <input
+    class="px-2 py-1 bg-transparent border-white border-2 rounded text-gray-800"
+    type="file"
+    accept="image/*"
+    name="book-image"
+  />
+</div>
