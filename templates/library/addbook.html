@@ -1,0 +1,11 @@
+{% extends 'base.html' %} {% block heading %} Add Book {% endblock heading %}
+<!--  -->
+{% block content %}
+
+<form
+  class="w-2xl sm:w-1/2 max-w-lg flex flex-col mx-auto"
+  method="POST"
+  action="/addbook/"
+  enctype="multipart/form-data"
+>
+  
