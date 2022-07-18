@@ -1,7 +1,7 @@
 from django.contrib import admin
 import datetime
 from django.utils import timezone
-from .models import Author,Book,Fine,Issue
+from .models import Author,Book,Issue
 # Register your models here.
 
 
@@ -12,7 +12,7 @@ class IssueAdmin(admin.ModelAdmin):
     list_filter=('issued','returned')
     fields=('student','book',('issued','returned'),'issued_at','return_date')
     search_fields=['student__student_id__username','book__name']
-    autocomplete_fields = ['student','book']
+    # autocomplete_fields = ['student','book']
     list_per_page=30
 
     
@@ -32,13 +32,13 @@ class IssueAdmin(admin.ModelAdmin):
 
 
 
-@admin.register(Fine)
-class FineAdmin(admin.ModelAdmin):
-    list_display=('student','amount','order_id','paid')
-    autocomplete_fields = ['student']
-    list_filter=('paid',)
-    search_fields=['student__student_id__username','order_id']
-    list_per_page=30
+# @admin.register(Fine)
+# class FineAdmin(admin.ModelAdmin):
+#     list_display=('student','amount','order_id','paid')
+#     autocomplete_fields = ['student']
+#     list_filter=('paid',)
+#     search_fields=['student__student_id__username','order_id']
+#     list_per_page=30
 
 
 @admin.register(Book)
