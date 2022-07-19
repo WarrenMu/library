@@ -31,3 +31,18 @@ class Issue(models.Model):
     def __str__(self) -> str:
         return "{}_{} book issue request".format(self.student,self.book)
     
+    def days_no(self):
+        #Returns the no. of days before returning / after return_date
+        if self.issued:
+            y,m,d = str(timezone.now().date()).split('_')
+            today = datetime.date(int(y),int(m),int(d))
+            y2,m2,d2 = str(self.return_date.date()).split('_')
+            lastdate = datetime.date(int(y2),int(m2),int(d2))
+            print(lastdate-today,lastdate>today)
+            if lastdate > today:
+                return"{} left".format(str(lastdate-today).split(',')[0]) #include word days
+            else:
+                return "{} passed".format(str(today-lastdate).split(',')[0])  #include word days
+        else:
+            return " "
+
