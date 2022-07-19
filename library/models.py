@@ -22,4 +22,12 @@ class Book(models.Model):
 
 class Issue(models.Model):
     student = models.ForeignKey(Student,on_delete=models.CASCADE)
-    book = models.ForeignKey(Book,on_delete=models.CASCADE)    
+    book = models.ForeignKey(Book,on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now=True)
+    issued = models.BooleanField(default=False,null=True,blank=True)
+    returned = models.BooleanField(default=False)
+    return_date = models.DateField(auto_now=False,auto_created=False,auto_now_add=False,null=True,blank=True)
+
+    def __str__(self) -> str:
+        return "{}_{} book issue request".format(self.student,self.book)
+    
