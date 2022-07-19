@@ -20,4 +20,10 @@ def allbooks(request):
     
     return render(request,'library/home.html',{'books':allbooks,'issuedbooks':issuedbooks,'requestedbooks':requestedbooks})
 
-
+def sort(request):
+    sort_type = request.GET.get('sort_type')
+    sort_by = request.GET.get('sort')
+    requestedbooks, issuedbooks = getmybooks(request.user)
+    if 'author' in sort_type:
+        author_results = Author.objects.filter(name_startswith = sort_by)
+        return render(request,'library/home.html',{'author_results': author_results,'issuedbooks':issuedbooks,'requestedbooks':requestedbooks,'selected':'author'})
