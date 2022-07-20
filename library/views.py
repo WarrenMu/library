@@ -127,3 +127,9 @@ def requestedissues(request):
         except User.DoesNotExist:
             messages.error(request,'No Student found')
             return redirect('/all-issues/')
+
+else:
+        issues=Issue.objects.filter(issued=False)
+        return render(request,'library/allissues.html',{'issues':issues})
+
+
