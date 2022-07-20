@@ -2,10 +2,11 @@ from django.urls import path
 
 from accounts.views import registerView
 from .views import allbooks,search,addbook,deletebook,issuerequest,myissues,issue_book,return_book,requestedissues,sort
-#,myfines,allfines,deletefine,payfine,pay_status,
+
 
 urlpatterns = [
     path('',allbooks,name='home'),
+    path('',registerView,name='register'),
     path('search/',search),
     path('sort/',sort),
     path('addbook/',addbook),
