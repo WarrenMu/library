@@ -132,4 +132,7 @@ else:
         issues=Issue.objects.filter(issued=False)
         return render(request,'library/allissues.html',{'issues':issues})
 
+@login_required(login_url='/admin/')
+@user_passes_test(lambda u:  u.is_superuser ,login_url='/student/login/')
+def issue_book(request,issueID):
 
