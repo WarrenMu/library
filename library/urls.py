@@ -5,5 +5,9 @@ urlpatterns = [
     path('search/',search),
     path('sort/',sort),
     path('addbook/',addbook),
+    path('deletebook/<int:bookID>/',deletebook),
+    path('request-book-issue/<int:bookID>/',issuerequest),
+    path('my-issues/',myissues),
+    
 
 ]
