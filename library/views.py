@@ -141,3 +141,13 @@ def issue_book(request,issueID):
     issue.issued=True
     issue.save()
     return redirect('/all-issues/')
+
+@login_required(login_url='/student/login/')
+@user_passes_test(lambda u:  u.is_superuser ,login_url='/admin/')
+def return_book(request,issueID):
+    issue=Issue.objects.get(id=issueID)
+    calcFine(issue)
+    issue.returned=True
+    issue.save()
+    return redirect('/all-issues/')
+
