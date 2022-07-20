@@ -136,5 +136,5 @@ STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static')
 ]
 
-RAZORPAY_KEY_ID=os.getenv("RAZORPAY_KEY_ID")
-RAZORPAY_KEY_SECRET=os.getenv("RAZORPAY_KEY_SECRET")
+import django_heroku
+django_heroku.settings(locals())
