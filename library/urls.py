@@ -3,5 +3,7 @@ from .views import allbooks,search,addbook,deletebook,issuerequest,myissues,issu
 urlpatterns = [
     path('',allbooks,name='home'),
     path('search/',search),
+    path('sort/',sort),
+    path('addbook/',addbook),
 
 ]
