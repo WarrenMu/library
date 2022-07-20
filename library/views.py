@@ -33,16 +33,18 @@ def sort(request):
     else:
         books_results = Book.objects.filter(name_startswith = sort_by)
         return render(request,'library/home.html',{'books_results':books_results,'issuedbooks':issuedbooks,'requestedbooks':requestedbooks,'selected':'book'})
-def sort(request):
-    sort_type=request.GET.get('sort_type')
-    sort_by=request.GET.get('sort')
+
+def search(request):
+    search_query=request.GET.get('search-query')
+    search_by_author=request.GET.get('author')
     requestedbooks,issuedbooks=getmybooks(request.user)
-    if 'author' in sort_type:
-        author_results=Author.objects.filter(name__startswith=sort_by)
-        return render(request,'library/home.html',{'author_results':author_results,'issuedbooks':issuedbooks,'requestedbooks':requestedbooks,'selected':'author'})
+
+    if search_by_author is not None:
+        author_results=Author.objects.filter(name__icontains=search_query)
+        return render(request,'library/home.html',{'author_results':author_results,'issuedbooks':issuedbooks,'requestedbooks':requestedbooks})
     else:
-        books_results=Book.objects.filter(name__startswith=sort_by)
-        return render(request,'library/home.html',{'books_results':books_results,'issuedbooks':issuedbooks,'requestedbooks':requestedbooks,'selected':'book'})
+        books_results=Book.objects.filter(Q(name__icontains=search_query) | Q(category__icontains=search_query))
+        return render(request,'library/home.html',{'books_results':books_results,'issuedbooks':issuedbooks,'requestedbooks':requestedbooks})
 
 @login_required(login_url='/student/login/')
 @user_passes_test(lambda u: u.is_superuser,login_url='/student/login')
