@@ -30,7 +30,6 @@
   </head>
   <body class="min-h-screen bg-gray-900 text-white">
     <!-- Navbar -->
-    {% include 'nav.html' %}
     <!-- Title of the page -->
     <header
       class="flex flex-row justify-between items-end mb-5 md:mx-auto max-w-5xl p-2"
@@ -38,12 +37,13 @@
       <h1 class="font-bold text-lg sm:text-xl capitalize">
         {%block heading %}{% endblock heading %}
       </h1>
-      {% if user.is_anonymous %}
-      <h2 class="text-red-400 sm:pr-5 xl:pr-3">logged out</h2>
+      {% if user.is_authenticated %}
+      <h2 class="text-green-400 sm:pr-5 xl:pr-3">logged in as {{user}}</h2>
       {% else %}
-      <h2 class="text-green-400">logged in as {{user}}</h2>
+      <h2 class="text-red-400">log in</h2>
       {% endif %}
     </header>
+    {% include 'nav.html'%}
     <section class="container md:mx-auto max-w-5xl">
       {% for message in messages %}
       <h3
