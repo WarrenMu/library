@@ -135,4 +135,9 @@ else:
 @login_required(login_url='/admin/')
 @user_passes_test(lambda u:  u.is_superuser ,login_url='/student/login/')
 def issue_book(request,issueID):
-
+    issue=Issue.objects.get(id=issueID)
+    issue.return_date=timezone.now() + datetime.timedelta(days=15)
+    issue.issued_at=timezone.now()
+    issue.issued=True
+    issue.save()
+    return redirect('/all-issues/')
