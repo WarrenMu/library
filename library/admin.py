@@ -3,17 +3,6 @@ import datetime
 from django.utils import timezone
 from .models import Author,Book,Issue
 # Register your models here.
-
-
-
-# @admin.register(Issue)
-# class IssueAdmin(admin.ModelAdmin):
-#     list_display=('accounts','book','issued','returned' ,'days_remaining')
-#     list_filter=('issued','returned')
-#     fields=('accounts','book',('issued','returned'),'issued_at','return_date')
-#     search_fields=['student__student_id__username','book__name']
-#     list_per_page=30
-
     
 
 def days_remaining(self,obj):
