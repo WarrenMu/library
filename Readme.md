@@ -2,7 +2,6 @@
 
 This is a simple library management system built by group B
 
-<!-- ### It is deployed [here](https://abhik-b.github.io/pomodro-timer/) -->
 
 This project is built with :
 
@@ -95,28 +94,4 @@ This is our main app where we will write our library system's main logic. It com
 **Student ID** - Username of Django's User Model serves as our studentID
 
 **Signing Up** - so every student who signs up creates a new user instance with his/her student id as the username and then a student instance is also created with the names and department and this user we just created.
-
-**Calculating Fine - How ??** -
-We run a for loop and pass all the issues to this calculate fine function. Then:
-
-- for each issue , check whether the issue is issued or not (if issue is not issued then no need to calculate fines)
-
-  - if issue is issued then check whether issue is returned or not (if issue is returned then no need to calculate fines)
-
-    - if issue is not returned then check whether the issue's return date is passed or not (if not passed then no calculation of fines is needed)
-      - create or get a fine instance with student & issue then calculate the amount and save it to the amount field
-
-**Calculating Fine - When ??** -
-
-- Whenever admin clicks on "_Calculate Fine_" button
-- Whenever a student opens his "_My Fines_" page
-
-**Payment of Fines**
-
-- when a student clicks on pay button (in myfines page)
-- we create a razorpay order with a dict containing fine amount (coverted to int and multiplied by 100 because razorpay wants in paisa) , order_id, currency
-- then we send the user to the payfines page (payfines.html) with the amount (in paisa ) , razorpay key id, razorpay order id & amount (which should be displayed)
-- user chooses proceed to payment online , selects paymode (Netbanking , Card , Wallet etc.) and pays the amount
-- we verify the payment status whether success or failure
-- then payment is (successfull/failure) message is shown on myfine page with (paid status / pay button) beside that fine
 
